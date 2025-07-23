@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
     <html lang="en" className={`${geist.variable}`}>
-      <body className=" bg-black text-white"> 
+      <body className=" bg-gray-800 text-yellow-600"> 
         <NextSSRPlugin
           /**
            * The `extractRouterConfig` will extract **only** the route configs

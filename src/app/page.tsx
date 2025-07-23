@@ -49,8 +49,8 @@ export default function HomePage() {
         </div>
       </SignedOut>
       <SignedIn>
-        <div className ="h-full w-full text-center text-2xl">
-         COLLECTION OF GIRLS THAT I CRUSH!
+        <div className ="h-full w-full font-bold text-center text-2xl">
+         <h1>COLLECTION OF GIRLS THAT I CRUSH!</h1>
          <Images />
         </div>
       </SignedIn>
