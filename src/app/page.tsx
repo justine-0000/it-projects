@@ -3,18 +3,19 @@ import { SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import { UploadButton } from "~/utils/uploadthing";
 import { UploadDialog } from "./_components/upload-dialog";
+import { getMyImages } from "~/server/queries";
+
+export const dynamic = "force-dynamic";
 
 async function Images() {
-const mockUrls = ["https://tse3.mm.bing.net/th/id/OIP.rEcJ5Muh5JXQ83GOrWI1XQAAAA?pid=Api&P=0&h=220",
-  "https://tse4.mm.bing.net/th/id/OIP.cQbepYfR9fdSCvemajzMjAHaEu?pid=Api&P=0&h=220",
-  "https://okagcj03wg.ufs.sh/f/YCBlntuozhBqHOnKXmQcvCai7F60YuWpKh4PXAnosfV9SxZr",
-  "https://okagcj03wg.ufs.sh/f/YCBlntuozhBqSasj3cH6uGpMQcVJWEta5hA0jd24CgNDZomX"
-];
+//const mockUrls = ["https://i.redd.it/bm7n0bsav73b1.jpg",];
  
-const images = mockUrls.map((url, index) => ({
-  id: index + 1,
-  url,
-}));
+//const images = mockUrls.map((url, index) => ({
+ // id: index + 1,
+  //url,
+//}));
+
+const images = await getMyImages();
 
 return(
   <div>
@@ -27,7 +28,7 @@ return(
       <div key={image.id} className="w-64">
         <div className="h-50 w-full overflow-hidden rounded-md bg-zinc-900">
           <img 
-           src={image.url} 
+           src={image.imageUrl} 
            alt={`Image ${image.id}`} 
            className="h-full w-full object-cover"
            />
@@ -49,11 +50,15 @@ export default function HomePage() {
         </div>
       </SignedOut>
       <SignedIn>
-        <div className ="h-full w-full font-bold text-center text-2xl">
-         <h1>COLLECTION OF GIRLS THAT I CRUSH!</h1>
-         <Images />
+        <div className="h-full w-full font-bold text-center text-2xl">
+        <div className="h-full w-full font-bold text-center text-4xl md:text-5xl tracking-wide text-gr drop-shadow-lg font-sans">
+         <h1>ArteFactCloud</h1>
+         
+        </div>
+        <Images />
         </div>
       </SignedIn>
     </main>
   );
 }
+ 

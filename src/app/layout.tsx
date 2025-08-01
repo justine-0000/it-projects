@@ -25,22 +25,23 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <ClerkProvider>
-    <html lang="en" className={`${geist.variable}`}>
-      <body className=" bg-gray-800 text-yellow-600"> 
-        <NextSSRPlugin
-          /**
-           * The `extractRouterConfig` will extract **only** the route configs
-           * from the router to prevent additional information from being
-           * leaked to the client. The data passed to the client is the same
-           * as if you were to fetch `/api/uploadthing` directly.
-           */
-          routerConfig={extractRouterConfig(ourFileRouter)}
-        />
-        <TopNav />
-        {children}
-        <Toaster />
+      <html lang="en" className={geist.variable}>
+        <body
+          className="min-h-screen bg-cover bg-center text-yellow-100"
+          style={{
+            backgroundImage: "url('/img/church.jpg')",
+          }}
+        >
+          <NextSSRPlugin
+            routerConfig={extractRouterConfig(ourFileRouter)}
+          />
+          <div className="min-h-screen bg-black/30">
+            <TopNav />
+            {children}
+          </div>
+          <Toaster />
         </body>
-    </html>
-   </ClerkProvider>
+      </html>
+    </ClerkProvider>
   );
 }
