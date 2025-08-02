@@ -101,12 +101,19 @@ export function UploadDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Upload Image</Button>
+        <Button
+          variant="outline"
+          className="bg-black text-white hover:bg-zinc-800"
+        >
+          Upload Image
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Upload Image</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-black text-2xl font-bold tracking-wide">
+            Upload Image
+          </DialogTitle>
+          <DialogDescription className="text-black">
             Upload your favorite ArtiFacts. Click submit when you're done.
           </DialogDescription>
         </DialogHeader>
@@ -122,7 +129,11 @@ export function UploadDialog() {
             </div>
           )}
           <div className="flex items-center gap-2 mt-2">
-            <Button variant="outline" onClick={() => inputRef.current?.click()}>
+            <Button
+              variant="outline"
+              onClick={() => inputRef.current?.click()}
+              className="bg-black text-white hover:bg-zinc-800"
+            >
               <Upload />
             </Button>
             <input
@@ -132,7 +143,7 @@ export function UploadDialog() {
               accept="image/*"
               onChange={handleImageSelect}
             />
-            {selectedImageName && <div>Selected: {selectedImageName}</div>}
+            {selectedImageName && <div className="text-black">Selected: {selectedImageName}</div>}
           </div>
         </div>
 
@@ -143,16 +154,24 @@ export function UploadDialog() {
               name="imageName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Image Name</FormLabel>
+                  <FormLabel className="text-black">Image Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Image Name" {...field} />
+                    <Input
+                      placeholder="Image Name"
+                      {...field}
+                      className="text-black border-black"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <DialogFooter>
-              <Button type="submit" disabled={isUploading}>
+              <Button
+                type="submit"
+                disabled={isUploading}
+                className="bg-black text-white hover:bg-zinc-800"
+              >
                 Submit
               </Button>
             </DialogFooter>
