@@ -9,6 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
+import { DeleteButton } from "./delete-button";
 
 interface ImageModalProps {
   image: {
@@ -26,11 +27,8 @@ export function ImageModal({ image, children }: ImageModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUser();
-
-  // ✅ Added missing uploaderInfo state
   const [uploaderInfo, setUploaderInfo] = useState<{ fullName: string } | null>(null);
 
-  // ✅ Fixed useEffect syntax
   useEffect(() => {
     if (isOpen && !uploaderInfo) {
       setIsLoading(true);
@@ -43,7 +41,7 @@ export function ImageModal({ image, children }: ImageModalProps) {
         })
         .catch((error) => {
           console.error("Error fetching uploader info:", error);
-          setUploaderInfo({ fullName: "Unknown" });
+          setUploaderInfo({ fullName: "Unknown uploader" });
           setIsLoading(false);
         });
     }
@@ -78,7 +76,7 @@ export function ImageModal({ image, children }: ImageModalProps) {
                   <span className="text-sm font-medium text-gray-100">
                     Uploaded By:
                   </span>
-                  <span>{isLoading ? "Loading..." : uploaderInfo?.fullName}</span>
+                  <span>{isLoading ? "Loading..." : uploaderInfo?.fullName ?? "Unknown uploader"}</span>
                 </div>
 
                 <div className="flex flex-col">
@@ -88,9 +86,11 @@ export function ImageModal({ image, children }: ImageModalProps) {
                   <span>{new Date(image.createdAt).toLocaleDateString()}</span>
                 </div>
 
-                <div className="mt-4">
-                  <Button>Delete</Button>
-                </div>
+                {user?.id === image.userId && (
+                  <div className="mt-4">
+                    <DeleteButton idAsNumber={image.id} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
