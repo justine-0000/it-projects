@@ -28,18 +28,16 @@ export default function RootLayout({
       <html lang="en" className={geist.variable}>
         <body
           className="min-h-screen bg-cover bg-center text-yellow-100"
-          style={{
-            backgroundImage: "url('/img/church.jpg')",
-          }}
+          style={{ backgroundImage: "url('/img/church.jpg')" }}
         >
-          <NextSSRPlugin
-            routerConfig={extractRouterConfig(ourFileRouter)}
-          />
-          
-          <div className="min-h-screen bg-black/30">
+          <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
+
+          {/* Optional dark overlay */}
+          <div className="min-h-screen bg-black/40 ">
             <TopNav />
             {children}
           </div>
+
           <Toaster />
         </body>
       </html>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { UploadButton } from "~/utils/uploadthing";
 import { UploadDialog } from "./_components/upload-dialog";
 import { getMyImages } from "~/server/queries";
+import { ImageModal } from "./_components/image-modal";
 
 export const dynamic = "force-dynamic";
 
@@ -27,6 +28,7 @@ return(
     {images.map((image) => (
       
       <div key={image.id} className="w-64">
+        <ImageModal image = {image}>
         <div className="h-50 w-full overflow-hidden rounded-md bg-zinc-900">
           <img 
            src={image.imageUrl} 
@@ -34,7 +36,10 @@ return(
            className="h-full w-full object-cover"
            />
         </div>
-       <div className="mt-2 text-center text-sm text-blue-700">{image.id}</div>       
+        </ImageModal>
+       <div className="mt-2 text-center text-sm text-black bg-white/80 px-3 py-1 rounded shadow">
+        {image.imageName || image.fileName}
+        </div>       
     </div>
     ))}
   </div>
