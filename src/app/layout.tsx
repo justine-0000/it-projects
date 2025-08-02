@@ -35,6 +35,7 @@ export default function RootLayout({
           <NextSSRPlugin
             routerConfig={extractRouterConfig(ourFileRouter)}
           />
+          
           <div className="min-h-screen bg-black/30">
             <TopNav />
             {children}
