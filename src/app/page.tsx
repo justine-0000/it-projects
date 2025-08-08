@@ -9,12 +9,6 @@ import { ImageModal } from "./_components/image-modal";
 export const dynamic = "force-dynamic";
 
 async function Images() {
-//const mockUrls = ["https://i.redd.it/bm7n0bsav73b1.jpg",];
- 
-//const images = mockUrls.map((url, index) => ({
- // id: index + 1,
-  //url,
-//}));
 
 const images = await getMyImages();
 

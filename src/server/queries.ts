@@ -32,7 +32,7 @@ export async function deleteImage(id: number) {
     throw new Error("Image not found");
   }
 
-  // ✅ Debug logs to verify userId matching
+  
   console.log("Current user ID:", user.userId);
   console.log("Uploader user ID:", image.userId);
 
@@ -40,7 +40,7 @@ export async function deleteImage(id: number) {
     throw new Error("You do not have permission to delete this image");
   }
 
-  // ✅ Delete the uploaded file from storage
+  
   const fileKey = image.imageUrl?.split("/").pop();
   if (!fileKey) {
     throw new Error("Invalid image URL");
@@ -48,7 +48,7 @@ export async function deleteImage(id: number) {
 
   await utapi.deleteFiles(fileKey);
 
-  // ✅ Delete the image record from database
+  
   await db.delete(images).where(
     and(eq(images.id, id), eq(images.userId, user.userId))
   );

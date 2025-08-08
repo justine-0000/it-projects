@@ -16,6 +16,7 @@ interface ImageModalProps {
     id: number;
     fileName: string | null;
     imageName: string | null;
+    imageDescription?: string | null;
     imageUrl: string;
     userId: string;
     createdAt: Date;
@@ -85,6 +86,13 @@ export function ImageModal({ image, children }: ImageModalProps) {
                   </span>
                   <span>{new Date(image.createdAt).toLocaleDateString()}</span>
                 </div>
+
+                {image.imageDescription && (
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium text-gray-100">Description:</span>
+                    <span>{image.imageDescription}</span>
+                  </div>
+                )}
 
                 {user?.id === image.userId && (
                   <div className="mt-4">

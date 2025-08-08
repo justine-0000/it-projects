@@ -33,6 +33,10 @@ const formSchema = z.object({
     .string()
     .min(5, { message: "Image name must be at least 5 characters." })
     .max(50),
+  imageDescription: z
+    .string()
+    .min(10, { message: "Description must be at least 10 characters." })
+    .max(200, { message: "Description must be less than 200 characters." }),
 });
 
 export function UploadDialog() {
@@ -40,7 +44,7 @@ export function UploadDialog() {
   const [isUploading, setIsUploading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { imageName: "" },
+    defaultValues: { imageName: "", imageDescription: "" },
   });
 
   const router = useRouter();
@@ -86,6 +90,7 @@ export function UploadDialog() {
       setIsUploading(true);
       await startUpload(Array.from(files), {
         imageName: values.imageName,
+        imageDescription: values.imageDescription,
       });
       setSelectedImageName(null);
       setSelectedImageUrl(null);
@@ -149,6 +154,7 @@ export function UploadDialog() {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-4">
+            {/* Image Name Input */}
             <FormField
               control={form.control}
               name="imageName"
@@ -159,6 +165,7 @@ export function UploadDialog() {
                     <Input
                       placeholder="Image Name"
                       {...field}
+                      value={field.value ?? ""}
                       className="text-black border-black"
                     />
                   </FormControl>
@@ -166,6 +173,26 @@ export function UploadDialog() {
                 </FormItem>
               )}
             />
+            {/* Image Description Input */}
+            <FormField
+              control={form.control}
+              name="imageDescription"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black">Image Description</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Write a short description of the image..."
+                      {...field}
+                      value={field.value ?? ""}
+                      className="text-black border-black"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <DialogFooter>
               <Button
                 type="submit"

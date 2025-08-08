@@ -1,5 +1,3 @@
-// core.ts
-
 import { auth } from "@clerk/nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
@@ -16,12 +14,21 @@ export const ourFileRouter = {
       maxFileCount: 1,
     },
   })
-    .input(z.object({ imageName: z.string().min(5) }))
+    .input(
+      z.object({
+        imageName: z.string().min(5),
+        imageDescription: z.string().min(10).max(200).optional(),
+      })
+    )
     .middleware(async ({ req, input }) => {
       const user = await auth();
       if (!user.userId) throw new UploadThingError("Unauthorized");
 
-      return { userId: user.userId, imageName: input.imageName };
+      return {
+        userId: user.userId,
+        imageName: input.imageName,
+        imageDescription: input.imageDescription,
+      };
     })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log("Upload complete for userId:", metadata.userId);
@@ -30,6 +37,7 @@ export const ourFileRouter = {
       await db.insert(images).values({
         fileName: file.name,
         imageName: metadata.imageName,
+        imageDescription: metadata.imageDescription ?? null,
         imageUrl: file.ufsUrl,
         userId: metadata.userId,
       });
